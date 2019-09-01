@@ -23,6 +23,7 @@ type
   PLinePoint = ^TLinePoint;
 
   TMainForm = class(TForm)
+    Layout1: TLayout;
     PaintBox1: TPaintBox;
     ColorPalettePanel: TRectangle;
     Rectangle1: TRectangle;
@@ -43,9 +44,9 @@ type
       Shift: TShiftState; X, Y: Single);
     procedure PaintBox1MouseMove(Sender: TObject; Shift: TShiftState; X,
       Y: Single);
+    procedure SpinBox1Change(Sender: TObject);
     procedure PaintBox1Paint(Sender: TObject; Canvas: TCanvas);
     procedure ColorClick(Sender: TObject);
-    procedure SpinBox1Change(Sender: TObject);
   private
     DrawPoints  : TList<TLinePoint>;
     PressStatus : Boolean;
@@ -139,13 +140,13 @@ begin
 
         for TLP in DrawPoints do
         begin
-             Canvas.Stroke.Thickness := TLP.Thickness;    {ü‚Ì‘¾‚³İ’è’Ç‰Á}
-             Canvas.Stroke.Color := TLP.Color;      { Fî•ñİ’è’Ç‰Á }
              case TLP.Status of
                         sStart : StartPoint := TLP.Positon;
                 else
                         begin
-                            Canvas.DrawLine(StartPoint, TLP.Positon, 1, Canvas.Stroke);
+                            Canvas.Stroke.Thickness := TLP.Thickness;    {ü‚Ì‘¾‚³İ’è’Ç‰Á}
+                            Canvas.Stroke.Color     := TLP.Color;      { Fî•ñİ’è’Ç‰Á }
+                            Canvas.DrawLine(StartPoint, TLP.Positon, 1,  Canvas.Stroke);
                             StartPoint := TLP.Positon;
                         end;
                 end;
